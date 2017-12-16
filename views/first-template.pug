@@ -1,0 +1,13 @@
+doctype html
+html
+    head
+        title="Moja pierwsza strona w PUG.js"
+        body
+            .row
+                .container
+                    h1 Hi Pawel11
+                    if(name)
+                        p Hello #{name}
+                    else
+                        p Hello Guest !!!
+            include ./pug-template.pug
