@@ -2,7 +2,8 @@ var express = require("express");
 var fs = require("fs");
 var app = express();
 
-app.use(express.static("assets"));
+// Dołączenie folderu assets
+// app.use(express.static("assets"));
 
 var server = app.listen(4000, 'localhost', function () {
     var host = server.address().address;
@@ -10,8 +11,18 @@ var server = app.listen(4000, 'localhost', function () {
     console.log('Przykładowa aplikacja nasłuchuje na http://' + host + ':' + port);
 });
 
+app.use('/store', function(req, res, next){
+    console.log('Hej, jestem pośrednikiem między żądaniem a odpowiedzią!');
+    next();
+});
+
+app.get("/store", function (req, res) {
+    console.log("Dostałem się do sklepu");
+    res.send("To jest sklep");
+});
+
 app.get('/', function (req, res) {
-    res.sendFile('/index.html')
+    res.send('Hello World')
 });
 
 app.get('/userform', function (req, res) {
