@@ -8,14 +8,15 @@ stringifyFile = fs.readFile('plik.json', 'UTF-8', function (err, data) {
 });
 
 
-app.get('/', function (req, res) {
+app.get('/getNote', function (req, res) {
     res.send(stringifyFile);
 });
 
-app.post("/updatefile/:note", function (req, res) {
-    stringifyFile += req.params.note;
+app.post('/updateNote/:note', function (req, res) {
+    var items = JSON.parse(stringifyFile);
+   items.menu.popup.menuitem.push({value: 'New Button', onClick: req.params.note});
     res.send(stringifyFile);
-    fs.writeFile("plik.json", stringifyFile, function (err) {
+    fs.writeFile("plik.json", JSON.stringify(items), function (err) {
         if (err) throw err;
         console.log("Write to file");
     });
@@ -47,4 +48,4 @@ app.use(function (req, res, text) {
 });
 
 
-app.listen(4000);
+app.listen(4100);
